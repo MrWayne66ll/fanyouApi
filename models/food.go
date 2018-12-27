@@ -117,15 +117,15 @@ func GetFoodList(offset int, limit int, username string, foodType string, startT
 }
 
 // 获取一个食物详情
-func GetFoodById(foodId int)(Food,error){
-	food:= Food{}
+func GetFoodById(foodId int) (Food, error) {
+	food := Food{}
 	food.Id = foodId
-	o:=orm.NewOrm()
-	err:=o.Read(&food)
-	if err!=nil{
-		return Food{},err
+	o := orm.NewOrm()
+	err := o.Read(&food)
+	if err != nil {
+		return Food{}, err
 	}
-	return food,nil
+	return food, nil
 }
 
 // 用户下架一个饭
@@ -145,12 +145,12 @@ func InActiveFood(foodId int) error {
 	return nil
 }
 
-func ChangeFoodStatus(foodId int,changeStatus string)(error){
-	food:= Food{}
+func ChangeFoodStatus(foodId int, changeStatus string) error {
+	food := Food{}
 	food.Id = foodId
 	o := orm.NewOrm()
-	errRe:=o.Read(&food)
-	if errRe!=nil{
+	errRe := o.Read(&food)
+	if errRe != nil {
 		return errRe
 	}
 	switch changeStatus {
@@ -163,8 +163,8 @@ func ChangeFoodStatus(foodId int,changeStatus string)(error){
 	default:
 		return errors.New("wrong food status input . ")
 	}
-	_,errUp := o.Update(&food)
-	if errUp!=nil{
+	_, errUp := o.Update(&food)
+	if errUp != nil {
 		return errUp
 	}
 	return nil

@@ -20,7 +20,7 @@ type Order struct {
 	CatchTime   string
 	GetTime     string
 	Status      string
-	Active		int
+	Active      int
 }
 
 func init() {
@@ -28,21 +28,21 @@ func init() {
 }
 
 // 创建一个抢单
-func CreateOrder(username string,foodId int)(int,error){
+func CreateOrder(username string, foodId int) (int, error) {
 	timestamp := time.Now().Format("2006-01-02 15:04:05")
-	user,errUser:=GetUserByName(username)
-	if errUser !=nil{
-		return -1,errUser
+	user, errUser := GetUserByName(username)
+	if errUser != nil {
+		return -1, errUser
 	}
-	food,errFood := GetFoodById(foodId)
-	if errFood!=nil{
-		return -1,errFood
+	food, errFood := GetFoodById(foodId)
+	if errFood != nil {
+		return -1, errFood
 	}
-	if food.Active != 1{
-		return -1,errors.New("this food is already deleted . ")
+	if food.Active != 1 {
+		return -1, errors.New("this food is already deleted . ")
 	}
-	if food.Status != FOOD_STATUS_RELEASE{
-		return -1,errors.New("this food has been ordered already . ")
+	if food.Status != FOOD_STATUS_RELEASE {
+		return -1, errors.New("this food has been ordered already . ")
 	}
 	order := Order{}
 	order.CatchUserId = user.Id
@@ -51,37 +51,37 @@ func CreateOrder(username string,foodId int)(int,error){
 	order.GetTime = timestamp
 	order.Status = ORDER_WAITING
 	o := orm.NewOrm()
-	orderId,errId:=o.Insert(&order)
-	if errId !=nil{
-		return -1,errId
+	orderId, errId := o.Insert(&order)
+	if errId != nil {
+		return -1, errId
 	}
-	errChang:=ChangeFoodStatus(foodId,FOOD_STATUS_Catch)
-	if errChang!=nil{
+	errChang := ChangeFoodStatus(foodId, FOOD_STATUS_Catch)
+	if errChang != nil {
 		InActiveOrder(int(orderId))
-		return -1,errChang
+		return -1, errChang
 	}
-	return int(orderId),nil
+	return int(orderId), nil
 }
 
 // 获取单个抢单
-func GetOrderById(orderId int)(Order,error){
+func GetOrderById(orderId int) (Order, error) {
 	order := Order{}
 	order.Id = orderId
-	o:= orm.NewOrm()
-	err:=o.Read(&order)
-	if err!=nil{
-		return Order{},err
+	o := orm.NewOrm()
+	err := o.Read(&order)
+	if err != nil {
+		return Order{}, err
 	}
-	return order,nil
+	return order, nil
 }
 
 // 修改抢单状态
-func ChangeOrderStatus(orderId int,changeStatus string)(error){
-	order,errOr := GetOrderById(orderId)
-	if errOr!=nil{
+func ChangeOrderStatus(orderId int, changeStatus string) error {
+	order, errOr := GetOrderById(orderId)
+	if errOr != nil {
 		return errOr
 	}
-	if order.Status == changeStatus{
+	if order.Status == changeStatus {
 		return errors.New("change status is the same status , get nothing to do .")
 	}
 	switch changeStatus {
@@ -96,9 +96,9 @@ func ChangeOrderStatus(orderId int,changeStatus string)(error){
 	default:
 		return errors.New("wrong order status input .")
 	}
-	o:= orm.NewOrm()
-	_,err :=o.Update(&order,"status")
-	if err!=nil{
+	o := orm.NewOrm()
+	_, err := o.Update(&order, "status")
+	if err != nil {
 		return err
 	}
 	return nil
