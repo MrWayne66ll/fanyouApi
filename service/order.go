@@ -1,5 +1,5 @@
 package service
 
-func ReleaseFood(username string,FoodName string){
+func ReleaseFood(username string, FoodName string) {
 
 }

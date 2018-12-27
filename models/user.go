@@ -6,33 +6,33 @@ import (
 )
 
 type User struct {
-	Id			int
-	Username	string
-	UsernameCn	string
-	Email 		string
-	Floor		string
-	Shelf		string
-	Active		int
-	CreateTime	string
+	Id         int
+	Username   string
+	UsernameCn string
+	Email      string
+	Floor      string
+	Shelf      string
+	Active     int
+	CreateTime string
 }
 
-func init(){
+func init() {
 	orm.RegisterModel(new(User))
 }
 
 // 根据username获取userid
-func GetUserByName(username string)(int,error){
+func GetUserByName(username string) (int, error) {
 	o := orm.NewOrm().QueryTable("user")
 	user := User{}
-	err := o.Filter("username",username).One(&user)
-	if err!=nil{
-		return -1,err
+	err := o.Filter("username", username).One(&user)
+	if err != nil {
+		return -1, err
 	}
-	return user.Id,nil
+	return user.Id, nil
 }
 
 // 创建新用户
-func CreateUser(username string,usernameCn string,floor string,shelf string)(int,error){
+func CreateUser(username string, usernameCn string, floor string, shelf string) (int, error) {
 	user := User{}
 	user.Username = username
 	user.UsernameCn = usernameCn
@@ -42,9 +42,9 @@ func CreateUser(username string,usernameCn string,floor string,shelf string)(int
 	user.Active = 1
 	user.CreateTime = time.Now().Format("2006-01-02 15:04:05")
 	o := orm.NewOrm()
-	id,err := o.Insert(&user)
-	if err!=nil{
-		return -1,err
+	id, err := o.Insert(&user)
+	if err != nil {
+		return -1, err
 	}
-	return int(id),nil
+	return int(id), nil
 }

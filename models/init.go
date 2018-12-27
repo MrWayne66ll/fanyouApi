@@ -4,10 +4,9 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql" // import your used driver
-
 )
 
-func Init(){
+func Init() {
 	dbHost := beego.AppConfig.String("db.host")
 	dbPort := beego.AppConfig.String("db.port")
 	dbUser := beego.AppConfig.String("db.user")
