@@ -2,7 +2,9 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"github.com/astaxie/beego/orm"
+	"strconv"
 	"time"
 )
 
@@ -22,11 +24,13 @@ type Food struct {
 	Id 			int
 	UserId		int
 	FoodName	string
+	FoodDate	string
 	Status 		string
 	ReleaseTime	string
 	GetTime		string
 	FoodType	string
 	Comment		string
+	Active 		int
 }
 
 func init(){
@@ -34,9 +38,9 @@ func init(){
 }
 
 // 创建一个饭
-func CreateFood(username string,foodName string,foodType string,comment string)(int,error){
+func CreateFood(username string,foodName string,foodType string,foodData string,comment string)(int,error){
 	timestamp := time.Now().Format("2006-01-02 15:04:05")
-	food := new(Food)
+	var food Food
 	switch foodType {
 	case FOODTYPE_BRE:
 		food.FoodType = FOODTYPE_BRE
@@ -58,11 +62,73 @@ func CreateFood(username string,foodName string,foodType string,comment string)(
 	food.ReleaseTime = timestamp
 	food.GetTime = timestamp
 	food.FoodName = foodName
-	food.Comment = comment
+	food.FoodDate = foodData
+	if comment != ""{
+		food.Comment = comment
+	} else {
+		food.Comment = "快来取我吧~"
+	}
+	food.Active = 1
 	o := orm.NewOrm()
 	foodId,errFood := o.Insert(&food)
 	if errFood!=nil{
 		return -1,errFood
 	}
 	return int(foodId),nil
+}
+
+// 获取食物列表
+func GetFoodList(offset int,limit int,username string,foodType string,startTime string,endTime string)(int,[]orm.Params,error){
+	o:=orm.NewOrm()
+	sql := `select * from food where active=1`
+	if username != ""{
+		sql = sql + " and username=" + username
+	}
+	switch foodType {
+	case FOODTYPE_BRE:
+		sql = sql + " and food_type=" + FOODTYPE_BRE
+	case FOODTYPE_LUN:
+		sql = sql + " and food_type=" + FOODTYPE_LUN
+	case FOODTYPE_DIN:
+		sql = sql + " and food_type=" + FOODTYPE_DIN
+	case FOODTYPE_NIG:
+		sql = sql + " and food_type=" + FOODTYPE_NIG
+	}
+	if startTime!="" && endTime!=""{
+		sql = sql + " and (food_date between "+`"`+startTime+`"`+" and "+`"`+endTime+`"`+")"
+	} else {
+		if startTime!=""{
+			sql = sql + " and food_date>"+`"`+startTime+`"`
+		}
+		if endTime!=""{
+			sql = sql + " and food_date<"+`"`+endTime+`"`
+		}
+	}
+	if limit>0{
+		sql = sql + " limit "+strconv.Itoa(offset)+","+strconv.Itoa(limit)
+	}
+	fmt.Println(sql)
+	var foodList []orm.Params
+	total,err:=o.Raw(sql).Values(&foodList)
+	if err!=nil{
+		return 0,foodList,err
+	}
+	return int(total),foodList,nil
+}
+
+// 用户下架一个饭
+func InActiveFood(foodId int)(error){
+	o:=orm.NewOrm()
+	food:= Food{}
+	food.Id = foodId
+	err := o.Read(&food)
+	if err!=nil{
+		return err
+	}
+	food.Active = 0
+	_,errUp := o.Update(&food,"active")
+	if errUp!=nil{
+		return errUp
+	}
+	return nil
 }

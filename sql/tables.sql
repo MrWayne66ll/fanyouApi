@@ -24,11 +24,13 @@ DROP TABLE IF EXISTS `food`;
 CREATE TABLE `food` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL COMMENT '用户id',
-  `foodName` varchar(256) CHARACTER SET utf8 NOT NULL COMMENT '食物名称',
+  `food_name` varchar(256) CHARACTER SET utf8 NOT NULL COMMENT '食物名称',
+  `food_date` date NOT NULL COMMENT '哪天的饭',
   `status` varchar(128) CHARACTER SET utf8 DEFAULT 'release' COMMENT '食物状态，发布、被抢、被领取',
   `release_time` datetime NOT NULL COMMENT '发布时间',
   `get_time` datetime NOT NULL COMMENT '被获取时间',
   `food_type` varchar(256) CHARACTER SET utf8 NOT NULL COMMENT '食物种类，早、中、晚、夜宵',
   `comment` varchar(256) CHARACTER SET utf8 DEFAULT '快来取我吧~' COMMENT '备注',
+  `active` tinyint(4) DEFAULT 1 NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
