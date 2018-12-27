@@ -21,14 +21,14 @@ func init() {
 }
 
 // 根据username获取userid
-func GetUserByName(username string) (int, error) {
+func GetUserByName(username string) (User, error) {
 	o := orm.NewOrm().QueryTable("user")
 	user := User{}
 	err := o.Filter("username", username).One(&user)
 	if err != nil {
-		return -1, err
+		return User{}, err
 	}
-	return user.Id, nil
+	return user, nil
 }
 
 // 创建新用户

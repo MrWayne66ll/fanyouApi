@@ -34,3 +34,15 @@ CREATE TABLE `food` (
   `active` tinyint(4) DEFAULT 1 NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE `order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `food_id` int(11) NOT NULL COMMENT '抢夺食物的id',
+  `catch_user_id` int(11) NOT NULL COMMENT '抢夺人的用户id',
+  `catch_time` datetime NOT NULL COMMENT '抢夺时间',
+  `get_time` datetime NOT NULL COMMENT '领取时间',
+  `status` varchar(128) CHARACTER SET utf8 DEFAULT 'wait' COMMENT '抢单状态：等待、领取、失效、反悔',
+  `active` tinyint(4) DEFAULT 1 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

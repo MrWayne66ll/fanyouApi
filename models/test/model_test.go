@@ -39,11 +39,11 @@ func TestCreateUser(t *testing.T) {
 func TestGetUserByName(t *testing.T) {
 	initDb()
 	username := "fengchuanling"
-	id, err := models.GetUserByName(username)
+	user, err := models.GetUserByName(username)
 	if err != nil {
 		t.Error(err)
 	} else {
-		t.Log(id)
+		t.Log(user)
 	}
 }
 
@@ -94,3 +94,31 @@ func TestInActiveFood(t *testing.T) {
 		t.Log("success")
 	}
 }
+
+func TestGetFood(t *testing.T){
+	initDb()
+	foodId := 1
+	food,err := models.GetFoodById(foodId)
+	if err!=nil{
+		t.Error(err)
+	} else {
+		t.Log(food)
+	}
+}
+
+func TestCreateOrder(t *testing.T){
+	initDb()
+	username := "fengchuanling"
+	foodId := 2
+	i,err:=models.CreateOrder(username,foodId)
+	if err!=nil{
+		t.Error(err)
+	} else {
+		order,errOr:=models.GetOrderById(i)
+		if errOr!=nil{
+			t.Error(errOr)
+		} else {
+			t.Log(order)
+		}
+		}
+	}

@@ -53,11 +53,11 @@ func CreateFood(username string, foodName string, foodType string, foodData stri
 	default:
 		return -1, errors.New("Get wrong food type !")
 	}
-	userId, errUser := GetUserByName(username)
+	user, errUser := GetUserByName(username)
 	if errUser != nil {
 		return -1, errUser
 	}
-	food.UserId = userId
+	food.UserId = user.Id
 	food.Status = FOOD_STATUS_RELEASE
 	food.ReleaseTime = timestamp
 	food.GetTime = timestamp
@@ -116,6 +116,18 @@ func GetFoodList(offset int, limit int, username string, foodType string, startT
 	return int(total), foodList, nil
 }
 
+// 获取一个食物详情
+func GetFoodById(foodId int)(Food,error){
+	food:= Food{}
+	food.Id = foodId
+	o:=orm.NewOrm()
+	err:=o.Read(&food)
+	if err!=nil{
+		return Food{},err
+	}
+	return food,nil
+}
+
 // 用户下架一个饭
 func InActiveFood(foodId int) error {
 	o := orm.NewOrm()
@@ -128,6 +140,31 @@ func InActiveFood(foodId int) error {
 	food.Active = 0
 	_, errUp := o.Update(&food, "active")
 	if errUp != nil {
+		return errUp
+	}
+	return nil
+}
+
+func ChangeFoodStatus(foodId int,changeStatus string)(error){
+	food:= Food{}
+	food.Id = foodId
+	o := orm.NewOrm()
+	errRe:=o.Read(&food)
+	if errRe!=nil{
+		return errRe
+	}
+	switch changeStatus {
+	case FOOD_STATUS_RELEASE:
+		food.Status = FOOD_STATUS_RELEASE
+	case FOOD_STATUS_Catch:
+		food.Status = FOOD_STATUS_Catch
+	case FOOD_STATUS_GET:
+		food.Status = FOOD_STATUS_GET
+	default:
+		return errors.New("wrong food status input . ")
+	}
+	_,errUp := o.Update(&food)
+	if errUp!=nil{
 		return errUp
 	}
 	return nil
