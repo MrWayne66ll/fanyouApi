@@ -111,6 +111,16 @@ func GetFoodList(offset int, limit int, username string, foodType string, startT
 	if limit > 0 {
 		sql = sql + " limit " + strconv.Itoa(offset) + "," + strconv.Itoa(limit)
 	}
+	sql = `select 
+			user.username as username,
+			user.username_cn as username_cn,
+			user.floor as user_floor,
+			f.food_name,
+			f.food_type,
+			f.food_date,
+			f.comment,
+			f.status as food_status
+			from (` + sql + `) as f left join user on f.user_id=user.id where user.active = 1`
 	fmt.Println(sql)
 	var foodList []orm.Params
 	total, err := o.Raw(sql).Values(&foodList)
