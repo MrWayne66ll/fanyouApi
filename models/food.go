@@ -82,17 +82,21 @@ func GetFoodList(offset int, limit int, username string, foodType string, startT
 	o := orm.NewOrm()
 	sql := `select * from food where active=1`
 	if username != "" {
-		sql = sql + " and username=" + username
+		user,errUser:=GetUserByName(username)
+		if errUser!=nil{
+			return -1,[]orm.Params{},errUser
+		}
+		sql = sql + " and user_id=" + strconv.Itoa(user.Id)
 	}
 	switch foodType {
 	case FOODTYPE_BRE:
-		sql = sql + " and food_type=" + FOODTYPE_BRE
+		sql = sql + " and food_type=" + `"`+FOODTYPE_BRE+`"`
 	case FOODTYPE_LUN:
-		sql = sql + " and food_type=" + FOODTYPE_LUN
+		sql = sql + " and food_type=" + `"`+FOODTYPE_LUN+`"`
 	case FOODTYPE_DIN:
-		sql = sql + " and food_type=" + FOODTYPE_DIN
+		sql = sql + " and food_type=" + `"`+FOODTYPE_DIN+`"`
 	case FOODTYPE_NIG:
-		sql = sql + " and food_type=" + FOODTYPE_NIG
+		sql = sql + " and food_type=" + `"`+FOODTYPE_NIG+`"`
 	}
 	if startTime != "" && endTime != "" {
 		sql = sql + " and (food_date between " + `"` + startTime + `"` + " and " + `"` + endTime + `"` + ")"
