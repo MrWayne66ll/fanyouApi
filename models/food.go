@@ -117,6 +117,14 @@ func GetFoodList(offset int, limit int, username string, foodType string, startT
 			user.floor as user_floor,
 			f.food_name,
 			f.food_type,
+			case f.food_type
+				when "breakfast" then "早餐"
+				when "lunch" then "午餐"
+				when "dinner" then "晚餐"
+				when "nightingale" then "夜宵"
+				else "other"
+			end
+			as food_type_cn,
 			f.food_date,
 			f.comment,
 			f.status as food_status
