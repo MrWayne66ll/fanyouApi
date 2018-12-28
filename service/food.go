@@ -3,9 +3,36 @@ package service
 import (
 	"errors"
 	"fanyouApi/models"
+	"github.com/astaxie/beego/orm"
 	"time"
 )
 
+func GetFoodList(offset int,limit int,username string,foodType string,startTime string,endTime string)(int,[]orm.Params,error){
+	if startTime!=""&&endTime!=""{
+		startStr := startTime + " 00:00:01 AM"
+		tmStart,errTmStart:=time.Parse("2006-01-02 03:04:05 PM",startStr)
+		if errTmStart!=nil{
+			return -1,[]orm.Params{},errTmStart
+		}
+		endStr := endTime + " 12:59:59 PM"
+		tmEnd,errTmEnd:= time.Parse("2006-01-02 03:04:05 PM",endStr)
+		if errTmEnd!=nil{
+			return -1,[]orm.Params{},errTmEnd
+		}
+		if int(tmStart.Unix())>=int(tmEnd.Unix()){
+			return -1,[]orm.Params{},errors.New("start_time > end_time , it's wrong ! ")
+		}
+
+	}
+	total,foodList,err:=models.GetFoodList(offset,limit,username,foodType,startTime,endTime)
+	if err!=nil{
+		return -1,[]orm.Params{},err
+	}
+	return total,foodList,nil
+}
+
+
+// 创建food
 func CreateFood(username string, foodName string, foodType string, foodData string, comment string)(int,error){
 	_,errUser:=models.GetUserByName(username)
 	if errUser!=nil{

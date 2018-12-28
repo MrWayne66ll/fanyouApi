@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fanyouApi/models"
 	"fanyouApi/service"
 	"fmt"
 	"github.com/bitly/go-simplejson"
@@ -31,7 +30,7 @@ func (this *FoodController) GetFoodList() {
 	foodType:= this.GetString("food_type","")
 	startTime := this.GetString("start_time","")
 	endTime:= this.GetString("end_time","")
-	total,foodList,err:=models.GetFoodList(offset,limit,username,foodType,startTime,endTime)
+	total,foodList,err:=service.GetFoodList(offset,limit,username,foodType,startTime,endTime)
 	if err!=nil{
 		res := make(map[string]interface{})
 		res["error"] = err.Error()
