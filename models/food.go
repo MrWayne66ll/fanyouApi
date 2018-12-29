@@ -2,7 +2,6 @@ package models
 
 import (
 	"errors"
-	"fmt"
 	"github.com/astaxie/beego/orm"
 	"strconv"
 	"time"
@@ -80,7 +79,7 @@ func CreateFood(username string, foodName string, foodType string, foodData stri
 // 获取食物列表
 func GetFoodList(offset int, limit int, username string, foodType string, startTime string, endTime string) (int, []orm.Params, error) {
 	o := orm.NewOrm()
-	sql := `select * from food where active=1`
+	sql := `select * from food where active=1 and status="release"`
 	if username != "" {
 		user,errUser:=GetUserByName(username)
 		if errUser!=nil{
@@ -127,9 +126,9 @@ func GetFoodList(offset int, limit int, username string, foodType string, startT
 			as food_type_cn,
 			f.food_date,
 			f.comment,
-			f.status as food_status
-			from (` + sql + `) as f left join user on f.user_id=user.id where user.active = 1`
-	fmt.Println(sql)
+			f.status as food_status,
+			f.id as id
+			from (` + sql + `) as f left join user on f.user_id=user.id where user.active = 1 order by id desc`
 	var foodList []orm.Params
 	total, err := o.Raw(sql).Values(&foodList)
 	if err != nil {

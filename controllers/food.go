@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"fanyouApi/service"
-	"fmt"
 	"github.com/bitly/go-simplejson"
 	"strings"
 )
@@ -96,7 +95,6 @@ func (this *FoodController) CreateFood(){
 	username := this.Data["username"].(string)
 	foodId,errSer:=service.CreateFood(username,foodName,foodType,food_date,comment)
 	if errSer!=nil{
-		fmt.Println(errSer)
 		res["error"] = errSer.Error()
 		this.Ctx.Output.SetStatus(500)
 		this.Data["json"] = ReturnInfo{1000, "create food failed . ", res}

@@ -11,6 +11,9 @@ func init() {
 			beego.NSRouter("/foodlist", &controllers.FoodController{},"get:GetFoodList"),
 			beego.NSRouter("/create", &controllers.FoodController{},"post:CreateFood"),
 			),
+		beego.NSNamespace("/order",
+			beego.NSRouter("/create", &controllers.OrderController{},"post:CreateOrder"),
+			),
 	)
 	beego.AddNamespace(ns)
 }
