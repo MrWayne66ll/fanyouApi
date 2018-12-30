@@ -42,7 +42,35 @@ func (this *OrderController) CreateOrder(){
 	}
 	res["order_id"] = orderId
 	this.Ctx.Output.SetStatus(200)
-	this.Data["json"] = ReturnInfo{1000, "create order success", res}
+	this.Data["json"] = ReturnInfo{0, "create order success", res}
 	this.ServeJSON()
 	this.StopRun()
 }
+
+func (this *OrderController) GetOrderList() {
+	username := this.Data["username"].(string)
+	res := make(map[string]interface{})
+	waitOrNot, errWait := this.GetInt("wait_or_not", 0)
+	if errWait != nil {
+		fmt.Println(errWait)
+		res["error"] = errWait.Error()
+		this.Ctx.Output.SetStatus(500)
+		this.Data["json"] = ReturnInfo{1000, "get waitOrNot num failed . ", res}
+		this.ServeJSON()
+		this.StopRun()
+	}
+	total, orderList, err := service.GetOrderList(username, waitOrNot)
+	if err != nil {
+		res["error"] = err.Error()
+		this.Ctx.Output.SetStatus(500)
+		this.Data["json"] = ReturnInfo{1000, "get order list failed . ", res}
+		this.ServeJSON()
+		this.StopRun()
+	}
+	res["total"] = total
+	res["order_list"] = orderList
+	this.Ctx.Output.SetStatus(200)
+	this.Data["json"] = ReturnInfo{0, "get order list success", res}
+	this.ServeJSON()
+	this.StopRun()
+	}

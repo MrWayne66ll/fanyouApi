@@ -13,6 +13,7 @@ func init() {
 			),
 		beego.NSNamespace("/order",
 			beego.NSRouter("/create", &controllers.OrderController{},"post:CreateOrder"),
+			beego.NSRouter("/orderlist", &controllers.OrderController{},"get:GetOrderList"),
 			),
 	)
 	beego.AddNamespace(ns)

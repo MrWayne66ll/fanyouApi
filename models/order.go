@@ -2,7 +2,9 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"github.com/astaxie/beego/orm"
+	"strconv"
 	"time"
 )
 
@@ -13,7 +15,7 @@ const (
 	ORDER_DENY    = "deny"    // 反悔单子
 )
 
-type Order struct {
+type OrderFood struct {
 	Id          int
 	FoodId      int
 	CatchUserId int
@@ -24,7 +26,7 @@ type Order struct {
 }
 
 func init() {
-	orm.RegisterModel(new(Order))
+	orm.RegisterModel(new(OrderFood))
 }
 
 // 创建一个抢单
@@ -44,12 +46,13 @@ func CreateOrder(username string, foodId int) (int, error) {
 	if food.Status != FOOD_STATUS_RELEASE {
 		return -1, errors.New("this food has been ordered already . ")
 	}
-	order := Order{}
+	order := OrderFood{}
 	order.CatchUserId = user.Id
 	order.FoodId = foodId
 	order.CatchTime = timestamp
 	order.GetTime = timestamp
 	order.Status = ORDER_WAITING
+	order.Active = 1
 	o := orm.NewOrm()
 	orderId, errId := o.Insert(&order)
 	if errId != nil {
@@ -64,13 +67,13 @@ func CreateOrder(username string, foodId int) (int, error) {
 }
 
 // 获取单个抢单
-func GetOrderById(orderId int) (Order, error) {
-	order := Order{}
+func GetOrderById(orderId int) (OrderFood, error) {
+	order := OrderFood{}
 	order.Id = orderId
 	o := orm.NewOrm()
 	err := o.Read(&order)
 	if err != nil {
-		return Order{}, err
+		return OrderFood{}, err
 	}
 	return order, nil
 }
@@ -107,7 +110,7 @@ func ChangeOrderStatus(orderId int, changeStatus string) error {
 // 关闭一个抢单
 func InActiveOrder(orderId int) error {
 	o := orm.NewOrm()
-	order := Order{}
+	order := OrderFood{}
 	order.Id = orderId
 	err := o.Read(&order)
 	if err != nil {
@@ -119,4 +122,43 @@ func InActiveOrder(orderId int) error {
 		return errUp
 	}
 	return nil
+}
+
+// 获取orderlist
+func GetOrderList(username string,waitOrNot int)(int,[]orm.Params,error){
+	user,errUser:=GetUserByName(username)
+	if errUser!=nil{
+		return -1,[]orm.Params{},errUser
+	}
+	o:= orm.NewOrm()
+	sql := `select * from order_food where active=1`
+	if username !=""{
+		sql = sql + ` and catch_user_id="` + strconv.Itoa(user.Id) + `"`
+	}
+	switch waitOrNot {
+	case 1:
+		sql = sql + ` and status="wait"`
+	case 2:
+		sql = sql + ` and status!="wait"`
+	}
+	sql = `select 
+		o.status as order_status,
+		o.catch_time,
+		food.food_name,
+		food.food_date,
+		food.food_type,
+		user.username_cn,
+		user.floor,user.shelf 
+		from (` + sql + `) as o 
+		left join food on food_id=food.id
+		left join user on food.user_id=user.id 
+		where user.active=1 and food.active=1`
+
+	fmt.Println(sql)
+	var orderList []orm.Params
+	total,errSql:=o.Raw(sql).Values(&orderList)
+	if errSql!=nil{
+		return -1,orderList,errSql
+	}
+	return int(total),orderList,nil
 }

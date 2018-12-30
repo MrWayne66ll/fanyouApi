@@ -35,8 +35,8 @@ CREATE TABLE `food` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `order`;
-CREATE TABLE `order` (
+DROP TABLE IF EXISTS `order_food`;
+CREATE TABLE `order_food` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `food_id` int(11) NOT NULL COMMENT '抢夺食物的id',
   `catch_user_id` int(11) NOT NULL COMMENT '抢夺人的用户id',
