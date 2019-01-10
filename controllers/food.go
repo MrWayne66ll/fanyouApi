@@ -103,7 +103,7 @@ func (this *FoodController) CreateFood(){
 	}
 	res["food_id"] = foodId
 	this.Ctx.Output.SetStatus(200)
-	this.Data["json"] = ReturnInfo{1000, "create food success . ", res}
+	this.Data["json"] = ReturnInfo{0, "create food success . ", res}
 	this.ServeJSON()
 	this.StopRun()
 	}

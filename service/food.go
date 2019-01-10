@@ -47,8 +47,8 @@ func CreateFood(username string, foodName string, foodType string, foodData stri
 	if foodData==""{
 		return -1,errors.New("food_date cannot be empty . ")
 	} else {
-		timeStr:= foodData+" 12:59:59 PM"
-		tm,errTm:=time.Parse("2006-01-02 03:04:05 PM",timeStr)
+		timeStr:= foodData+" 11:59:59 PM"
+		tm,errTm:=time.Parse("2006-1-2 03:04:05 PM",timeStr)
 		if errTm!=nil{
 			return -1,errTm
 		}

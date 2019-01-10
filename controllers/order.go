@@ -74,3 +74,47 @@ func (this *OrderController) GetOrderList() {
 	this.ServeJSON()
 	this.StopRun()
 	}
+
+func (this *OrderController) GetOrDenyOrder() {
+	//username := this.Data["username"].(string)
+	res := make(map[string]interface{})
+	params,errJson := simplejson.NewJson(this.Ctx.Input.RequestBody)
+	if errJson!=nil{
+		fmt.Println(errJson)
+		res["error"] = errJson.Error()
+		this.Ctx.Output.SetStatus(500)
+		this.Data["json"] = ReturnInfo{1000, "json dump wrong", res}
+		this.ServeJSON()
+		this.StopRun()
+	}
+	orderId,errId:=params.Get("order_id").Int()
+	if errId!=nil{
+		fmt.Println(errId)
+		res["error"] = errId.Error()
+		this.Ctx.Output.SetStatus(500)
+		this.Data["json"] = ReturnInfo{1000, "json dump order_id wrong", res}
+		this.ServeJSON()
+		this.StopRun()
+	}
+	changeStatus,errCha:=params.Get("change_status").String()
+	if errId!=nil{
+		fmt.Println(errCha)
+		res["error"] = errCha.Error()
+		this.Ctx.Output.SetStatus(500)
+		this.Data["json"] = ReturnInfo{1000, "json dump change_status wrong", res}
+		this.ServeJSON()
+		this.StopRun()
+	}
+	err:=service.ChangeOrderStatus(orderId,changeStatus)
+	if err!=nil{
+		res["error"] = err.Error()
+		this.Ctx.Output.SetStatus(500)
+		this.Data["json"] = ReturnInfo{1000, "change order status failed . ", res}
+		this.ServeJSON()
+		this.StopRun()
+	}
+	this.Ctx.Output.SetStatus(200)
+	this.Data["json"] = ReturnInfo{0, "change order status success", res}
+	this.ServeJSON()
+	this.StopRun()
+}

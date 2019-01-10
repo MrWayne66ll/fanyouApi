@@ -2,7 +2,6 @@ package models
 
 import (
 	"errors"
-	"fmt"
 	"github.com/astaxie/beego/orm"
 	"strconv"
 	"time"
@@ -58,7 +57,7 @@ func CreateOrder(username string, foodId int) (int, error) {
 	if errId != nil {
 		return -1, errId
 	}
-	errChang := ChangeFoodStatus(foodId, FOOD_STATUS_Catch)
+	errChang := ChangeFoodStatus(foodId, FOOD_STATUS_Catch,"")
 	if errChang != nil {
 		InActiveOrder(int(orderId))
 		return -1, errChang
@@ -79,7 +78,7 @@ func GetOrderById(orderId int) (OrderFood, error) {
 }
 
 // 修改抢单状态
-func ChangeOrderStatus(orderId int, changeStatus string) error {
+func ChangeOrderStatus(orderId int, changeStatus string, timeStamp string) error {
 	order, errOr := GetOrderById(orderId)
 	if errOr != nil {
 		return errOr
@@ -98,6 +97,14 @@ func ChangeOrderStatus(orderId int, changeStatus string) error {
 		order.Status = ORDER_INVALID
 	default:
 		return errors.New("wrong order status input .")
+	}
+	if timeStamp != "" {
+		order.GetTime = timeStamp
+		o := orm.NewOrm()
+		_, err := o.Update(&order, "status","get_time")
+		if err != nil {
+			return err
+		}
 	}
 	o := orm.NewOrm()
 	_, err := o.Update(&order, "status")
@@ -142,19 +149,34 @@ func GetOrderList(username string,waitOrNot int)(int,[]orm.Params,error){
 		sql = sql + ` and status!="wait"`
 	}
 	sql = `select 
+		o.id as order_id,
 		o.status as order_status,
+		case o.status
+			when "wait" then "等待获取"
+			when "get" then "已获取"
+			when "invalid" then "失效"
+			when "deny" then "丢弃"
+			else "other"
+		end
+		as order_status_cn,
 		o.catch_time,
 		food.food_name,
 		food.food_date,
 		food.food_type,
+		case food.food_type
+			when "breakfast" then "早餐"
+			when "lunch" then "午餐"
+			when "dinner" then "晚餐"
+			when "nightingale" then "夜宵"
+			else "other"
+		end
+		as food_type_cn,
 		user.username_cn,
 		user.floor,user.shelf 
 		from (` + sql + `) as o 
 		left join food on food_id=food.id
 		left join user on food.user_id=user.id 
 		where user.active=1 and food.active=1`
-
-	fmt.Println(sql)
 	var orderList []orm.Params
 	total,errSql:=o.Raw(sql).Values(&orderList)
 	if errSql!=nil{

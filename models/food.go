@@ -166,7 +166,8 @@ func InActiveFood(foodId int) error {
 	return nil
 }
 
-func ChangeFoodStatus(foodId int, changeStatus string) error {
+// 修改食物的状态
+func ChangeFoodStatus(foodId int, changeStatus string,timeStamp string) error {
 	food := Food{}
 	food.Id = foodId
 	o := orm.NewOrm()
@@ -184,7 +185,14 @@ func ChangeFoodStatus(foodId int, changeStatus string) error {
 	default:
 		return errors.New("wrong food status input . ")
 	}
-	_, errUp := o.Update(&food)
+	if timeStamp != ""{
+		food.GetTime = timeStamp
+		_, errUp := o.Update(&food,"status","get_time")
+		if errUp != nil {
+			return errUp
+		}
+	}
+	_, errUp := o.Update(&food,"status")
 	if errUp != nil {
 		return errUp
 	}
