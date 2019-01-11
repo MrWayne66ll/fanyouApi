@@ -2,15 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="679e5216-fe56-47ae-bfe8-985573ec1f23" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/tests/conf/app.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/food.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/food.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/order.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/order.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fanyouApi.exe" beforeDir="false" afterPath="$PROJECT_DIR$/fanyouApi.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/food.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/food.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/order.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/order.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routers/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/routers/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/food.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/food.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/order.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/default_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/tests/default_test.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,36 +21,36 @@
     <session id="-188137513">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
-          <entry key="project.open.time.0" value="3" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.closed" value="3" />
+          <entry key="project.open.time.0" value="4" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="conf" value="3" />
+          <entry key="conf" value="4" />
           <entry key="gitignore" value="1" />
-          <entry key="go" value="36" />
+          <entry key="go" value="39" />
           <entry key="sql" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Go" value="36" />
-          <entry key="PLAIN_TEXT" value="4" />
+          <entry key="Go" value="39" />
+          <entry key="PLAIN_TEXT" value="5" />
           <entry key="SQL" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="conf" value="13" />
-          <entry key="go" value="13949" />
+          <entry key="go" value="14799" />
           <entry key="sql" value="424" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Go" value="13949" />
+          <entry key="Go" value="14799" />
           <entry key="PLAIN_TEXT" value="13" />
           <entry key="SQL" value="424" />
         </counts>
@@ -65,14 +64,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routers/router.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="24" column="61" selection-start-line="24" selection-start-column="61" selection-end-line="24" selection-end-column="61" />
-              <folding>
-                <element signature="e#17#80#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="275">
+              <caret line="15" column="7" lean-forward="true" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -80,8 +76,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/common.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="725">
-              <caret line="29" column="45" lean-forward="true" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
+            <state relative-caret-position="650">
+              <caret line="29" column="45" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
               <folding>
                 <element signature="e#21#79#0" expanded="true" />
               </folding>
@@ -92,8 +88,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/order.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="98" column="50" selection-start-line="98" selection-start-column="37" selection-end-line="98" selection-end-column="50" />
+            <state relative-caret-position="306">
+              <caret line="140" column="42" selection-start-line="140" selection-start-column="29" selection-end-line="140" selection-end-column="42" />
               <folding>
                 <element signature="e#21#93#0" expanded="true" />
               </folding>
@@ -104,17 +100,43 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service/order.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="781">
-              <caret line="65" column="14" selection-start-line="65" selection-start-column="14" selection-end-line="65" selection-end-column="14" />
+            <state relative-caret-position="656">
+              <caret line="74" column="1" selection-start-line="74" selection-start-column="1" selection-end-line="74" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/default_test.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="281">
+              <caret line="54" column="1" selection-start-line="54" selection-start-column="1" selection-end-line="54" selection-end-column="1" />
+              <folding>
+                <element signature="e#14#194#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/conf/app.conf">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/test/model_test.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="21" selection-start-line="8" selection-end-line="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/order.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-294">
-              <caret line="152" column="33" selection-start-line="152" selection-start-column="33" selection-end-line="152" selection-end-column="33" />
+            <state relative-caret-position="306">
+              <caret line="197" column="41" selection-start-line="197" selection-start-column="41" selection-end-line="197" selection-end-column="41" />
               <folding>
                 <element signature="e#16#87#0" expanded="true" />
               </folding>
@@ -125,7 +147,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/food.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
+            <state relative-caret-position="4100">
               <caret line="169" column="19" selection-start-line="169" selection-start-column="19" selection-end-line="169" selection-end-column="19" />
             </state>
           </provider>
@@ -180,10 +202,11 @@
         <option value="$PROJECT_DIR$/controllers/food.go" />
         <option value="$PROJECT_DIR$/service/food.go" />
         <option value="$PROJECT_DIR$/models/food.go" />
+        <option value="$PROJECT_DIR$/models/order.go" />
+        <option value="$PROJECT_DIR$/service/order.go" />
+        <option value="$PROJECT_DIR$/tests/default_test.go" />
         <option value="$PROJECT_DIR$/controllers/order.go" />
         <option value="$PROJECT_DIR$/routers/router.go" />
-        <option value="$PROJECT_DIR$/service/order.go" />
-        <option value="$PROJECT_DIR$/models/order.go" />
       </list>
     </option>
   </component>
@@ -205,7 +228,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -216,17 +238,18 @@
             <path>
               <item name="fanyouApi" type="b2602c69:ProjectViewProjectNode" />
               <item name="fanyouApi" type="462c0819:PsiDirectoryNode" />
-              <item name="conf" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fanyouApi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fanyouApi" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="fanyouApi" type="b2602c69:ProjectViewProjectNode" />
               <item name="fanyouApi" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fanyouApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fanyouApi" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="fanyouApi" type="b2602c69:ProjectViewProjectNode" />
@@ -243,10 +266,16 @@
               <item name="fanyouApi" type="462c0819:PsiDirectoryNode" />
               <item name="sql" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="fanyouApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fanyouApi" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -256,6 +285,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\fengchuanling\go\src\fanyouApi\tests" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -269,18 +303,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestCreateOrder in fanyouApi/models/test">
-    <configuration name="TestCreateFood in fanyouApi/models/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="fanyouApi" />
-      <working_directory value="$PROJECT_DIR$/models/test" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="fanyouApi/models/test" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestCreateFood$" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Go Test.TestDeleteHistoryByName in fanyouApi/tests">
     <configuration name="TestCreateOrder in fanyouApi/models/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="fanyouApi" />
       <working_directory value="$PROJECT_DIR$/models/test" />
@@ -290,6 +313,17 @@
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
       <pattern value="^TestCreateOrder$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestDeleteHistoryByName in fanyouApi/tests" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="fanyouApi" />
+      <working_directory value="$PROJECT_DIR$/tests" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="fanyouApi/tests" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestDeleteHistoryByName$" />
       <method v="2" />
     </configuration>
     <configuration name="TestGetFood in fanyouApi/models/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -327,28 +361,22 @@
     </configuration>
     <list>
       <item itemvalue="Go Test.TestGetUserByName in fanyouApi/models/test" />
-      <item itemvalue="Go Test.TestCreateFood in fanyouApi/models/test" />
       <item itemvalue="Go Test.TestGetFoodList in fanyouApi/models/test" />
       <item itemvalue="Go Test.TestGetFood in fanyouApi/models/test" />
       <item itemvalue="Go Test.TestCreateOrder in fanyouApi/models/test" />
+      <item itemvalue="Go Test.TestDeleteHistoryByName in fanyouApi/tests" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestDeleteHistoryByName in fanyouApi/tests" />
         <item itemvalue="Go Test.TestCreateOrder in fanyouApi/models/test" />
         <item itemvalue="Go Test.TestGetFood in fanyouApi/models/test" />
         <item itemvalue="Go Test.TestGetUserByName in fanyouApi/models/test" />
         <item itemvalue="Go Test.TestGetFoodList in fanyouApi/models/test" />
-        <item itemvalue="Go Test.TestCreateFood in fanyouApi/models/test" />
       </list>
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="TestGetFoodList_in_fanyouApi_models_test - 2018.12.27 at 13h 58m 52s.xml">
-      <configuration name="TestGetFoodList in fanyouApi/models/test" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestGetFoodList_in_fanyouApi_models_test - 2018.12.27 at 14h 00m 18s.xml">
-      <configuration name="TestGetFoodList in fanyouApi/models/test" configurationId="GoTestRunConfiguration" />
-    </history-entry>
     <history-entry file="TestGetUserByName_in_fanyouApi_models_test - 2018.12.27 at 15h 48m 35s.xml">
       <configuration name="TestGetUserByName in fanyouApi/models/test" configurationId="GoTestRunConfiguration" />
     </history-entry>
@@ -373,12 +401,19 @@
     <history-entry file="TestCreateOrder_in_fanyouApi_models_test - 2018.12.27 at 16h 53m 16s.xml">
       <configuration name="TestCreateOrder in fanyouApi/models/test" configurationId="GoTestRunConfiguration" />
     </history-entry>
+    <history-entry file="TestDeleteHistoryByName_in_fanyouApi_tests - 2019.01.11 at 14h 05m 43s.xml">
+      <configuration name="TestDeleteHistoryByName in fanyouApi/tests" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestDeleteHistoryByName_in_fanyouApi_tests - 2019.01.11 at 14h 06m 29s.xml">
+      <configuration name="TestDeleteHistoryByName in fanyouApi/tests" configurationId="GoTestRunConfiguration" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.18336888" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.18550107" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info active="true" anchor="bottom" id="Terminal" order="0" visible="true" weight="0.27377522" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -404,13 +439,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../github.com/astaxie/beego/orm/types.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="47" column="4" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../github.com/bitly/go-simplejson/simplejson_go11.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
@@ -460,13 +488,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/test/model_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/conf/app.conf">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -508,23 +529,6 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/common.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="725">
-          <caret line="29" column="45" lean-forward="true" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
-          <folding>
-            <element signature="e#21#79#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/food.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Go/src/time/format.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
@@ -539,47 +543,88 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/common.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="650">
+          <caret line="29" column="45" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
+          <folding>
+            <element signature="e#21#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/food.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
+        <state relative-caret-position="4100">
           <caret line="169" column="19" selection-start-line="169" selection-start-column="19" selection-end-line="169" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/food.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../github.com/astaxie/beego/orm/types.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4640">
+          <caret line="139" column="5" selection-start-line="139" selection-start-column="5" selection-end-line="139" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/order.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="197" column="41" selection-start-line="197" selection-start-column="41" selection-end-line="197" selection-end-column="41" />
+          <folding>
+            <element signature="e#16#87#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/service/order.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="781">
-          <caret line="65" column="14" selection-start-line="65" selection-start-column="14" selection-end-line="65" selection-end-column="14" />
+        <state relative-caret-position="656">
+          <caret line="74" column="1" selection-start-line="74" selection-start-column="1" selection-end-line="74" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routers/router.go">
+    <entry file="file://$PROJECT_DIR$/models/test/model_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="24" column="61" selection-start-line="24" selection-start-column="61" selection-end-line="24" selection-end-column="61" />
+        <state relative-caret-position="425">
+          <caret line="21" selection-start-line="8" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/conf/app.conf">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/default_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="54" column="1" selection-start-line="54" selection-start-column="1" selection-end-line="54" selection-end-column="1" />
           <folding>
-            <element signature="e#17#80#0" expanded="true" />
+            <element signature="e#14#194#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/order.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="98" column="50" selection-start-line="98" selection-start-column="37" selection-end-line="98" selection-end-column="50" />
+        <state relative-caret-position="306">
+          <caret line="140" column="42" selection-start-line="140" selection-start-column="29" selection-end-line="140" selection-end-column="42" />
           <folding>
             <element signature="e#21#93#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/order.go">
+    <entry file="file://$PROJECT_DIR$/routers/router.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-294">
-          <caret line="152" column="33" selection-start-line="152" selection-start-column="33" selection-end-line="152" selection-end-column="33" />
-          <folding>
-            <element signature="e#16#87#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="275">
+          <caret line="15" column="7" lean-forward="true" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
         </state>
       </provider>
     </entry>

@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"github.com/astaxie/beego/orm"
 	"strconv"
 	"time"
@@ -57,7 +58,7 @@ func CreateOrder(username string, foodId int) (int, error) {
 	if errId != nil {
 		return -1, errId
 	}
-	errChang := ChangeFoodStatus(foodId, FOOD_STATUS_Catch,"")
+	errChang := ChangeFoodStatus(foodId, FOOD_STATUS_Catch, "")
 	if errChang != nil {
 		InActiveOrder(int(orderId))
 		return -1, errChang
@@ -101,7 +102,7 @@ func ChangeOrderStatus(orderId int, changeStatus string, timeStamp string) error
 	if timeStamp != "" {
 		order.GetTime = timeStamp
 		o := orm.NewOrm()
-		_, err := o.Update(&order, "status","get_time")
+		_, err := o.Update(&order, "status", "get_time")
 		if err != nil {
 			return err
 		}
@@ -132,14 +133,14 @@ func InActiveOrder(orderId int) error {
 }
 
 // 获取orderlist
-func GetOrderList(username string,waitOrNot int)(int,[]orm.Params,error){
-	user,errUser:=GetUserByName(username)
-	if errUser!=nil{
-		return -1,[]orm.Params{},errUser
+func GetOrderList(offset int, limit int, username string, waitOrNot int) (int, []orm.Params, error) {
+	user, errUser := GetUserByName(username)
+	if errUser != nil {
+		return -1, []orm.Params{}, errUser
 	}
-	o:= orm.NewOrm()
+	o := orm.NewOrm()
 	sql := `select * from order_food where active=1`
-	if username !=""{
+	if username != "" {
 		sql = sql + ` and catch_user_id="` + strconv.Itoa(user.Id) + `"`
 	}
 	switch waitOrNot {
@@ -176,11 +177,35 @@ func GetOrderList(username string,waitOrNot int)(int,[]orm.Params,error){
 		from (` + sql + `) as o 
 		left join food on food_id=food.id
 		left join user on food.user_id=user.id 
-		where user.active=1 and food.active=1`
+		where user.active=1 and food.active=1 order by order_id desc`
 	var orderList []orm.Params
-	total,errSql:=o.Raw(sql).Values(&orderList)
-	if errSql!=nil{
-		return -1,orderList,errSql
+	total, errSql := o.Raw(sql).Values(&orderList)
+	if errSql != nil {
+		return -1, orderList, errSql
 	}
-	return int(total),orderList,nil
+	if limit > 0 {
+		sql = sql + ` limit ` + strconv.Itoa(offset) + `,` + strconv.Itoa(limit)
+		_, errSql2 := o.Raw(sql).Values(&orderList)
+		if errSql2 != nil {
+			return -1, orderList, errSql2
+		}
+		fmt.Println(sql)
+	}
+	return int(total), orderList, nil
+}
+
+func DeleteHistoryByName(username string) error {
+	user, errUser := GetUserByName(username)
+	if errUser != nil {
+		return errUser
+	}
+	o := orm.NewOrm().QueryTable("order_food")
+	count, err := o.Filter("catch_user_id", user.Id).Exclude("status", ORDER_WAITING).Update(orm.Params{
+		"active": 0,
+	})
+	if err != nil {
+		return err
+	}
+	fmt.Println(count)
+	return nil
 }
