@@ -81,21 +81,21 @@ func GetFoodList(offset int, limit int, username string, foodType string, startT
 	o := orm.NewOrm()
 	sql := `select * from food where active=1 and status="release"`
 	if username != "" {
-		user,errUser:=GetUserByName(username)
-		if errUser!=nil{
-			return -1,[]orm.Params{},errUser
+		user, errUser := GetUserByName(username)
+		if errUser != nil {
+			return -1, []orm.Params{}, errUser
 		}
 		sql = sql + " and user_id=" + strconv.Itoa(user.Id)
 	}
 	switch foodType {
 	case FOODTYPE_BRE:
-		sql = sql + " and food_type=" + `"`+FOODTYPE_BRE+`"`
+		sql = sql + " and food_type=" + `"` + FOODTYPE_BRE + `"`
 	case FOODTYPE_LUN:
-		sql = sql + " and food_type=" + `"`+FOODTYPE_LUN+`"`
+		sql = sql + " and food_type=" + `"` + FOODTYPE_LUN + `"`
 	case FOODTYPE_DIN:
-		sql = sql + " and food_type=" + `"`+FOODTYPE_DIN+`"`
+		sql = sql + " and food_type=" + `"` + FOODTYPE_DIN + `"`
 	case FOODTYPE_NIG:
-		sql = sql + " and food_type=" + `"`+FOODTYPE_NIG+`"`
+		sql = sql + " and food_type=" + `"` + FOODTYPE_NIG + `"`
 	}
 	if startTime != "" && endTime != "" {
 		sql = sql + " and (food_date between " + `"` + startTime + `"` + " and " + `"` + endTime + `"` + ")"
@@ -106,6 +106,11 @@ func GetFoodList(offset int, limit int, username string, foodType string, startT
 		if endTime != "" {
 			sql = sql + " and food_date<" + `"` + endTime + `"`
 		}
+	}
+	var tmpList []orm.Params
+	total, err := o.Raw(sql).Values(&tmpList)
+	if err != nil {
+		return 0, tmpList, err
 	}
 	if limit > 0 {
 		sql = sql + " limit " + strconv.Itoa(offset) + "," + strconv.Itoa(limit)
@@ -130,9 +135,9 @@ func GetFoodList(offset int, limit int, username string, foodType string, startT
 			f.id as id
 			from (` + sql + `) as f left join user on f.user_id=user.id where user.active = 1 order by id desc`
 	var foodList []orm.Params
-	total, err := o.Raw(sql).Values(&foodList)
-	if err != nil {
-		return 0, foodList, err
+	_, err2 := o.Raw(sql).Values(&foodList)
+	if err2 != nil {
+		return 0, foodList, err2
 	}
 	return int(total), foodList, nil
 }
@@ -167,7 +172,7 @@ func InActiveFood(foodId int) error {
 }
 
 // 修改食物的状态
-func ChangeFoodStatus(foodId int, changeStatus string,timeStamp string) error {
+func ChangeFoodStatus(foodId int, changeStatus string, timeStamp string) error {
 	food := Food{}
 	food.Id = foodId
 	o := orm.NewOrm()
@@ -185,14 +190,14 @@ func ChangeFoodStatus(foodId int, changeStatus string,timeStamp string) error {
 	default:
 		return errors.New("wrong food status input . ")
 	}
-	if timeStamp != ""{
+	if timeStamp != "" {
 		food.GetTime = timeStamp
-		_, errUp := o.Update(&food,"status","get_time")
+		_, errUp := o.Update(&food, "status", "get_time")
 		if errUp != nil {
 			return errUp
 		}
 	}
-	_, errUp := o.Update(&food,"status")
+	_, errUp := o.Update(&food, "status")
 	if errUp != nil {
 		return errUp
 	}
