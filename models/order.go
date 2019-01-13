@@ -152,6 +152,7 @@ func GetOrderList(offset int, limit int, username string, waitOrNot int) (int, [
 	sql = `select 
 		o.id as order_id,
 		o.status as order_status,
+		o.catch_time,
 		case o.status
 			when "wait" then "等待获取"
 			when "get" then "已获取"
@@ -189,7 +190,6 @@ func GetOrderList(offset int, limit int, username string, waitOrNot int) (int, [
 		if errSql2 != nil {
 			return -1, orderList, errSql2
 		}
-		fmt.Println(sql)
 	}
 	return int(total), orderList, nil
 }

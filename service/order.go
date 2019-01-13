@@ -3,7 +3,9 @@ package service
 import (
 	"errors"
 	"fanyouApi/models"
+	"fmt"
 	"github.com/astaxie/beego/orm"
+	"strconv"
 	"time"
 )
 
@@ -28,6 +30,36 @@ func GetOrderList(offset int, limit int, username string, waitOrNot int) (int, [
 	total, orderList, errList := models.GetOrderList(offset, limit, username, waitOrNot)
 	if errList != nil {
 		return -1, []orm.Params{}, errList
+	}
+	timeNow := int(time.Now().Unix())
+	tmpTime := 0
+	if waitOrNot == 1 {
+		for _, v := range orderList {
+			loc, _ := time.LoadLocation("Local")
+			tmp, err := time.ParseInLocation("2006-01-02 15:04:05", v["catch_time"].(string), loc)
+			if err != nil {
+				return -1, []orm.Params{}, err
+			}
+			tmpTime = int(tmp.Unix())
+			fmt.Println(timeNow - tmpTime)
+			fmt.Println(tmp.Unix())
+			fmt.Println(tmpTime)
+			fmt.Println(tmp)
+			fmt.Println(v["catch_time"].(string))
+			if (timeNow - tmpTime) > 1*60 {
+				//if (timeNow-tmpTime) > 15*60 {
+				tmpId, _ := strconv.Atoi(v["order_id"].(string))
+				err := models.ChangeOrderStatus(tmpId, models.ORDER_INVALID, "")
+				if err != nil {
+					return -1, []orm.Params{}, err
+				}
+			}
+		}
+		total, orderList, errList := models.GetOrderList(offset, limit, username, waitOrNot)
+		if errList != nil {
+			return -1, []orm.Params{}, errList
+		}
+		return total, orderList, nil
 	}
 	return total, orderList, nil
 }
